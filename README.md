@@ -95,6 +95,13 @@ docker compose logs -f postgres
 
 # 生成された Notebook コンテナの一覧 (ホスト側)
 docker ps --filter label=com.docker.compose.project=$(basename "$PWD")
+
+# rootでユーザーコンテナにログイン
+docker exec -u root -it jupyter-admin bash
+
+# コンテナ内で libGL と関連パッケージを導入
+apt-get update
+apt-get install -y libgl1 libglib2.0-0
 ```
 
 必要に応じて `jupyterhub_config.py` の `c.DockerSpawner.network_name` や `.env` の `COMPOSE_PROJECT_NAME` を同じ値に揃えること。

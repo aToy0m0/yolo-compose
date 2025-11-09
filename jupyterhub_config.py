@@ -40,7 +40,7 @@ c.JupyterHub.cookie_secret_file = '/srv/jupyterhub_data/jupyterhub_cookie_secret
 c.JupyterHub.db_url = 'postgresql://jhub:jhubpass@postgres:5432/jhubdb'
 
 # カスタムテンプレートのパス設定
-c.JupyterHub.template_paths = ['/srv/jupyterhub/templates']
+c.JupyterHub.template_paths = ['./templates']
 
 # # サインアップとログインのURL
 # http://localhost:8901/hub/signup
