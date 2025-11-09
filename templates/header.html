@@ -1,0 +1,53 @@
+{# templates/header.html #}
+<div class="container-fluid">
+  <span id="jupyterhub-logo" class="navbar-brand">
+    <a href="/hub/">
+      <img src="/hub/logo" alt="Custom Logo" class="jpy-logo" title="Home">
+    </a>
+  </span>
+
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#thenavbar" aria-controls="thenavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="thenavbar">
+    <ul class="navbar-nav me-auto mb-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/hub/home">🏠 Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/hub/token">🔑 Token</a>
+      </li>
+      {% if user.admin %}
+      <li class="nav-item">
+        <a class="nav-link" href="/hub/admin">⚙️ Admin</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="https://yourdocs.local" target="_blank">📘 Docs</a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav me-2">
+      <li class="nav-item">
+        <button class="btn btn-sm" id="dark-theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <i aria-hidden="true" class="fa fa-circle-half-stroke"></i>
+        </button>
+      </li>
+      <li class="nav-item">
+        <span id="login_widget">
+          {% if user %}
+            <span class="me-1">{{ user.name }}</span>
+            <a id="logout" role="button" class="btn btn-sm btn-outline-contrast" href="/hub/logout">
+              <i class="fa fa-sign-out"></i> Logout
+            </a>
+          {% else %}
+            <a id="login" role="button" class="btn btn-sm btn-outline-contrast" href="/hub/login">
+              <i class="fa fa-sign-in"></i> Login
+            </a>
+          {% endif %}
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>

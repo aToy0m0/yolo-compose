@@ -1,0 +1,40 @@
+services:
+  postgres:
+    container_name: jupyterhub_postgres
+    build:
+      context: ./postgres
+    environment:
+      POSTGRES_USER: jhub
+      POSTGRES_PASSWORD: jhubpass
+      POSTGRES_DB: jhubdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - jupyterhub_net
+
+  jupyterhub:
+    container_name: jupyterhub_app
+    build:
+      context: ..
+      dockerfile: test_compose/Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      DOCKER_HOST: unix:///var/run/docker.sock
+    group_add:
+      - "${DOCKER_GID}"
+    volumes:
+      - ./data/jupyterhub:/srv/jupyterhub_data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8901:8000"
+    restart: unless-stopped
+    networks:
+      - jupyterhub_net
+
+networks:
+  jupyterhub_net:
+    driver: bridge
